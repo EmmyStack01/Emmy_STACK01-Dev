@@ -1,0 +1,74 @@
+---
+import AdminLayout from "../layouts/AdminLayout.astro";
+---
+<AdminLayout title="Document Engine" active="documents" description="Create White-Label Licenses and Project Agreements as A4 PDFs.">
+  <link slot="head" rel="stylesheet" href="/documents.css">
+
+  <div class="de">
+    <aside class="de-panel card" aria-label="Document settings">
+      <fieldset class="de-group">
+        <legend>Template</legend>
+        <div class="seg" role="radiogroup" aria-label="Template">
+          <label class="seg-opt"><input type="radio" name="tpl" value="whiteLabel" checked><span>White-Label<br>License</span></label>
+          <label class="seg-opt"><input type="radio" name="tpl" value="projectAgreement"><span>Project<br>Agreement</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="de-group">
+        <legend>Parties &amp; details</legend>
+        <div class="field"><label for="inClient">Client / company name</label><input class="input" type="text" id="inClient" value="Acme Corporation" autocomplete="off"></div>
+        <div class="field"><label for="inProject">Software / project name</label><input class="input" type="text" id="inProject" value="Custom E-Commerce Platform &amp; Core Engine" autocomplete="off"></div>
+        <div class="two">
+          <div class="field"><label for="inDate">Effective date</label><input class="input" type="date" id="inDate"></div>
+          <div class="field"><label for="inFee">Fee / cost</label><input class="input" type="text" id="inFee" value="$100 USD" autocomplete="off"></div>
+        </div>
+      </fieldset>
+
+      <fieldset class="de-group">
+        <legend>QR code (optional)</legend>
+        <div class="field"><label for="inQRnote">Footer note</label><input class="input" type="text" id="inQRnote" value="Scan the QR code to sign this document." autocomplete="off"></div>
+        <div class="field"><label for="inQR">Link URL</label><input class="input" type="url" id="inQR" value="https://emmystack01.com/tools/emmy-sign" placeholder="https://..." autocomplete="off" inputmode="url"></div>
+      </fieldset>
+
+      <div id="agreementControls" hidden>
+        <fieldset class="de-group">
+          <legend>Scope of work</legend>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="toggleCreative" checked> Creative assets (brand kit / UI/UX)</label>
+            <label class="check"><input type="checkbox" id="toggleTechnical" checked> Technical architecture (code / SEO)</label>
+            <label class="check"><input type="checkbox" id="toggleDeployment" checked> Deployment operations (hosting / Git)</label>
+            <label class="check"><input type="checkbox" id="toggleSearch" checked> Search verification (Search Console)</label>
+          </div>
+        </fieldset>
+        <fieldset class="de-group">
+          <legend>Optional clauses</legend>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="toggleClause2" checked> Financial &amp; milestone terms</label>
+            <label class="check"><input type="checkbox" id="toggleClause3" checked> Domain infrastructure &amp; costs</label>
+            <label class="check"><input type="checkbox" id="toggleClause5" checked> White-label option</label>
+            <label class="check"><input type="checkbox" id="toggleClause6" checked> Termination &amp; kill fee</label>
+          </div>
+        </fieldset>
+      </div>
+    </aside>
+
+    <section class="de-preview" aria-label="Document preview">
+      <p class="de-label">A4 preview &middot; 210 &times; 297 mm</p>
+      <div id="stage"><div id="scaler"><div id="downloadWrapper"></div></div></div>
+    </section>
+  </div>
+
+  <div class="de-bar">
+    <div class="de-bar-info"><span class="pill">Pages <b id="pageCount">&mdash;</b></span><span class="de-status" id="deStatus" role="status" aria-live="polite"></span></div>
+    <div class="de-bar-btns">
+      <button type="button" class="btn ghost" id="printBtn"><i class="ri-printer-line" aria-hidden="true"></i> Print</button>
+      <button type="button" class="btn primary" id="pdfBtn"><i class="ri-download-2-line" aria-hidden="true"></i> Download PDF</button>
+    </div>
+  </div>
+
+  <div class="de-overlay" id="deOverlay" hidden><div class="de-spin"></div><p>Rendering PDF&hellip; please wait</p></div>
+
+  <!-- Self-hosted libraries: no third-party scripts run on a page where an admin is signed in. -->
+  <script slot="scripts" src="/vendor/qrcode.min.js" is:inline></script>
+  <script slot="scripts" src="/documents.js" is:inline></script>
+</AdminLayout>

@@ -1,0 +1,19 @@
+---
+import AdminLayout from "../layouts/AdminLayout.astro";
+const tools = [
+  { name: "Partner Desk", text: "Find a partner by code, see their email and payout details, and add leads and orders.", href: "/partners", icon: "ri-user-search-line", live: true },
+  { name: "Password generator", text: "Strong random passwords or memorable phrases, 10 to 18 characters, with one-tap copy.", href: "/password", icon: "ri-lock-password-line", live: true },
+  { name: "Document engine", text: "Create White-Label Licenses and Project Agreements as print-ready A4 PDFs.", href: "/documents", icon: "ri-file-text-line", live: true },
+];
+---
+<AdminLayout title="Tools">
+  <div class="wrap">
+    <h1 class="page-title">Dev tools</h1>
+    <p class="page-sub">Private tools for Emmy STACK01. Pick one.</p>
+    <div class="tools">
+      {tools.map((t) => t.live
+        ? <a class="tool" href={t.href}><i class={t.icon} aria-hidden="true"></i><h2>{t.name}</h2><p>{t.text}</p><span class="go">Open <i class="ri-arrow-right-line" aria-hidden="true"></i></span></a>
+        : <div class="tool off"><i class={t.icon} aria-hidden="true"></i><h2>{t.name}</h2><p>{t.text}</p><span class="soon">Coming soon</span></div>)}
+    </div>
+  </div>
+</AdminLayout>

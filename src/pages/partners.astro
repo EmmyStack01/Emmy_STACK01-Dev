@@ -1,0 +1,59 @@
+---
+import AdminLayout from "../layouts/AdminLayout.astro";
+---
+<AdminLayout title="Partner Desk" active="partners" description="Find an affiliate partner and update their leads and orders.">
+  <div class="wrap">
+    <h1 class="page-title">Partner Desk</h1>
+    <p class="page-sub">Someone messaged with a partner code? Look it up, then add the lead or order.</p>
+
+    <form class="card search" id="findForm" novalidate>
+      <label for="q">Partner code, email or referral link</label>
+      <div class="search-row">
+        <input class="input code-input" type="text" id="q" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. AB123CD" required>
+        <button type="submit" class="btn primary" id="findBtn"><i class="ri-search-line" aria-hidden="true"></i> Find</button>
+      </div>
+      <p class="msg" id="findMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <article class="card result" id="result" hidden aria-label="Partner details">
+      <div class="r-head">
+        <div>
+          <h2 id="rName"></h2>
+          <p class="muted small">Joined <span id="rJoined"></span></p>
+        </div>
+        <span class="badge" id="rStatus"></span>
+      </div>
+
+      <dl class="rows">
+        <div class="row"><dt>Partner code</dt><dd><strong class="mono big" id="rCode"></strong></dd><button type="button" class="copy" data-copy="rCode" aria-label="Copy partner code"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+        <div class="row"><dt>Email</dt><dd id="rEmail"></dd><button type="button" class="copy" data-copy="rEmail" aria-label="Copy email"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+      </dl>
+
+      <h3 class="section">Count it</h3>
+      <div class="stats">
+        <div class="stat"><span class="k">Clicks</span><span class="v" id="rClicks">0</span><span class="note">automatic</span></div>
+        <div class="stat"><span class="k">Leads</span><span class="v" id="rLeads">0</span>
+          <div class="acts"><button type="button" class="btn primary" data-adjust="leads" data-delta="1">+1 lead</button><button type="button" class="btn ghost sm" data-adjust="leads" data-delta="-1" aria-label="Remove one lead">&minus;1</button></div></div>
+        <div class="stat"><span class="k">Orders</span><span class="v" id="rOrders">0</span>
+          <div class="acts"><button type="button" class="btn primary" data-adjust="orders" data-delta="1">+1 order</button><button type="button" class="btn ghost sm" data-adjust="orders" data-delta="-1" aria-label="Remove one order">&minus;1</button></div></div>
+      </div>
+      <p class="msg" id="adjMsg" role="status" aria-live="polite"></p>
+      <p class="hint">Add an order only after the client has paid. The partner's earnings depend on it.</p>
+
+      <div class="pay-head"><h3 class="section">Payment details</h3><span class="badge soft" id="pMethod"></span></div>
+      <p class="muted" id="pNone" hidden>No payment details on file.</p>
+      <dl class="rows" id="pBank" hidden>
+        <div class="row"><dt>Bank name</dt><dd id="pBankName"></dd><button type="button" class="copy" data-copy="pBankName" aria-label="Copy bank name"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+        <div class="row"><dt>Account name</dt><dd id="pAccName"></dd><button type="button" class="copy" data-copy="pAccName" aria-label="Copy account name"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+        <div class="row"><dt>Account number</dt><dd class="mono" id="pAccNo"></dd><button type="button" class="copy" data-copy="pAccNo" aria-label="Copy account number"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+      </dl>
+      <dl class="rows" id="pCrypto" hidden>
+        <div class="row"><dt>Coin</dt><dd id="pCoin"></dd><button type="button" class="copy" data-copy="pCoin" aria-label="Copy coin name"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+        <div class="row"><dt>Network</dt><dd id="pNet"></dd><button type="button" class="copy" data-copy="pNet" aria-label="Copy network"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+        <div class="row"><dt>Wallet address</dt><dd class="mono wrap-any" id="pWallet"></dd><button type="button" class="copy" data-copy="pWallet" aria-label="Copy wallet address"><i class="ri-file-copy-line" aria-hidden="true"></i></button></div>
+      </dl>
+      <button type="button" class="btn ghost block" id="copyAll" hidden><i class="ri-clipboard-line" aria-hidden="true"></i> Copy all details</button>
+    </article>
+  </div>
+  <script slot="scripts" src="/partners.js" is:inline></script>
+</AdminLayout>
