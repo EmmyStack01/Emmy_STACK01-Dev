@@ -1,0 +1,84 @@
+---
+import AdminLayout from "../layouts/AdminLayout.astro";
+---
+<AdminLayout title="Brand Asset Studio" active="brand" description="Create a brand style guide and export it as an A4 PDF.">
+  <link slot="head" rel="stylesheet" href="/brand-asset.css">
+
+  <div class="ba">
+    <header class="ba-head">
+      <div>
+        <h1 class="page-title">Brand Asset Studio</h1>
+        <p class="page-sub">Create. Preview. Export Your Brand Identity.</p>
+      </div>
+      <div class="ba-head-btns">
+        <button type="button" class="btn ghost" id="baReset"><i class="ri-restart-line" aria-hidden="true"></i> Reset</button>
+        <button type="button" class="btn primary" id="baPdf"><i class="ri-file-download-line" aria-hidden="true"></i> <span>Download Brand Guidelines (PDF)</span></button>
+      </div>
+    </header>
+
+    <div class="ba-grid">
+      <aside class="ba-panel card" aria-label="Brand settings">
+
+        <!-- A1 -->
+        <details class="ba-sec" open>
+          <summary><span class="ba-n">1</span> Brand identity</summary>
+          <div class="field"><label for="baName">Brand name</label><input class="input" type="text" id="baName" maxlength="40" placeholder="e.g. Emmy STACK01" autocomplete="off"></div>
+          <div class="field"><label for="baTag">Tagline / slogan <span class="muted">(optional)</span></label><input class="input" type="text" id="baTag" maxlength="80" placeholder="e.g. Build. Launch. Grow." autocomplete="off"></div>
+          <div class="field">
+            <label id="baLogoLbl">Logo</label>
+            <div class="ba-drop" id="baDrop" tabindex="0" role="button" aria-labelledby="baLogoLbl" aria-describedby="baLogoHint">
+              <div class="ba-drop-pv" id="baLogoPv"><span class="ba-ph">No logo yet</span></div>
+              <div class="ba-drop-tx">
+                <b id="baDropMain">Drop a logo here or tap to upload</b>
+                <span id="baLogoHint" class="muted small">PNG or SVG, up to 8 MB. Transparent works best.</span>
+              </div>
+              <input type="file" id="baFile" accept="image/png,image/svg+xml,image/jpeg,image/webp" hidden>
+            </div>
+            <button type="button" class="link ba-rm" id="baLogoRm" hidden>Remove logo</button>
+            <p class="msg" id="baLogoMsg" role="status" aria-live="polite"></p>
+          </div>
+        </details>
+
+        <!-- A2 -->
+        <details class="ba-sec" open>
+          <summary><span class="ba-n">2</span> Colour palette <span class="ba-count" id="baCount">0/7</span></summary>
+          <div class="ba-pal" id="baPalBar" aria-hidden="true"></div>
+          <div class="ba-use" id="baUseBar" aria-hidden="true"></div>
+          <p class="ba-useleg muted small" id="baUseLeg"></p>
+          <div id="baColors" class="ba-colors"></div>
+          <button type="button" class="btn ghost block" id="baAddColor"><i class="ri-add-line" aria-hidden="true"></i> Add colour</button>
+          <p class="muted small ba-tip">Type a HEX (#2d66b4), RGB (rgb(45,102,180)), HSL (hsl(213,59%,45%)) or a colour name (royalblue).</p>
+        </details>
+
+        <!-- A3 -->
+        <details class="ba-sec" open>
+          <summary><span class="ba-n">3</span> Typography <span class="ba-count" id="baFontCount">0/4</span></summary>
+          <div id="baFonts"></div>
+          <div class="ba-sliders">
+            <div class="field">
+              <label for="baLh">Body line height <b id="baLhV" class="ba-val"></b></label>
+              <input type="range" id="baLh" min="1.1" max="2.2" step="0.05" value="1.6">
+            </div>
+            <div class="field">
+              <label for="baLs">Headline letter spacing <b id="baLsV" class="ba-val"></b></label>
+              <input type="range" id="baLs" min="-0.04" max="0.2" step="0.005" value="0">
+            </div>
+          </div>
+        </details>
+
+        <button type="button" class="btn primary block ba-pdf2" id="baPdf2"><i class="ri-file-download-line" aria-hidden="true"></i> Download Brand Guidelines (PDF)</button>
+        <p class="msg" id="baMsg" role="status" aria-live="polite"></p>
+      </aside>
+
+      <section class="ba-preview" aria-label="Live brand sheet preview">
+        <p class="ba-pv-note muted small"><i class="ri-eye-line" aria-hidden="true"></i> Live preview. These 5 A4 pages are exactly what the PDF contains.</p>
+        <div class="ba-stage" id="baStage"></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="ba-overlay" id="baOverlay" hidden role="alert" aria-live="assertive"><div class="ba-ov-box"><i class="ri-loader-4-line ba-spin" aria-hidden="true"></i><b id="baOvTxt">Building your PDF…</b><span class="muted small">Please keep this tab open.</span></div></div>
+  <div class="ba-off" id="baOff" aria-hidden="true"></div>
+
+  <script slot="scripts" src="/brand-asset.js" is:inline></script>
+</AdminLayout>
